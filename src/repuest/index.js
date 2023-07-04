@@ -15,7 +15,12 @@ export const dragonBall = ()=>http.get('/homepage/dragon/ball')
 export const hotTopic = () =>http.get('/topic/detail/event/hot?actid=111551188')
 //推荐歌单
 export const personalized =() => http.get('/personalized?limit=11');
-
+// 猜你喜欢
+export const detail = () => http.get('/search/hot/detail');
+// 歌单详情
+export const playlistTrackAll = (id) => http.get('/playlist/track/all',{params:{id}})
+//歌单详情头部
+export const playlistDetail = (id) => http.get('/playlist/detail',{params:{id}})
 
 
 // 获取默认搜索关键词
@@ -49,5 +54,3 @@ function getPreviousDayTimestamp() {
   return [startTimestamp,endTimestamp]
 }
 
-
-// 歌单排行

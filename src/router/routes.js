@@ -8,7 +8,7 @@ export default [
     //路径重定向 如果是/默认是IndexView页面
     {
         path:'/',
-        redirect:'/IndexView',
+        redirect:'/HomeView',
     },
     {
         path:"/IndexView",//地址栏跳转的路径
@@ -33,5 +33,14 @@ export default [
     {
         path:"/Zone",
         component:Zone
+    },
+    {
+        path: "/Foo",
+        //懒加载组件
+        component: () => import('../views/Foo.vue')
+    },
+    {
+        path: '/SingingListDetails:id',
+        component: () => import('../views/SingingListDetails/SingingListDetails.vue')
     }
 ]

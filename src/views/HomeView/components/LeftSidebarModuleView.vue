@@ -1,18 +1,18 @@
 <template>
   <div class='dark:bg-[#2c2c2c] rounded-[15px] bg-[#fff] w-[76vw] mx-auto mt-[4vw]'>
-    <div class="dark:border-b-[#333] text-[#969696] text-[3vw] px-[4vw] py-[3vw] border-b-[0.35vw] border-b-[#E8e8e8]" v-if='item.title'>{{ item.title }}</div>
+    <div v-if='item.title' class="dark:border-b-[#333] text-[#969696] text-[3vw] px-[4vw] py-[3vw] border-b-[0.35vw] border-b-[#E8e8e8]">{{ item.title }}</div>
     <div class="px-[4vw]">
-      <div class="flex items-center justify-between h-[12vw] px-[3.6vw]" v-for='item1 in item.data' :key='item1'  >
+      <div v-for='item1 in item.data' :key='item1' class="flex items-center justify-between h-[12vw] px-[3.6vw]"  >
         <div class="flex items-center">
           <Icon :icon="item1.icon" class='dark:text-[#f0f0f0] text-[#333] font-[800] w-[4vw] h-[4vw]' />
           <span class="dark:text-[#f0f0f0]  text-[color:#333333] text-[3.5vw] ml-[2.73vw]">{{item1.name}}</span>
         </div>
         <div class="flex items-center">
-          <span class="text-[color:#a7a7a7] text-[3vw]" v-if='item1.rigth'>{{item1.rigth}}</span>
-          <Icon icon="mingcute:right-line" color="#b5b5b5" class='font-[800] w-[6vw] h-[6vw]' v-if='!item1?.btn'/>
-          <div class="relative inline-block mr-2 align-middle select-none transition duration-200 ease-in" v-if='item1?.btn'>
+          <span v-if='item1.rigth' class="text-[color:#a7a7a7] text-[3vw]">{{item1.rigth}}</span>
+          <Icon v-if='!item1?.btn' class='font-[800] w-[6vw] h-[6vw]' color="#b5b5b5" icon="mingcute:right-line"/>
+          <div v-if='item1?.btn' class="relative inline-block mr-2 align-middle select-none transition duration-200 ease-in">
              <div class="switch">
-                <input type="checkbox" id="toggle" :checked='!checked' @click='fn'>
+                <input id="toggle" :checked='!darkMode' type="checkbox" @click='increase'>
                 <label for="toggle"></label>
              </div>
           </div>
@@ -23,18 +23,17 @@
 </template>
 
 <script>
+import store from "../../../store";
+
 export default {
-  props: ['item','checks'],
-   data() {
-      return {
-         checked: false,
-      };
-   },
+  props: ['item'],
+  computed:{
+    darkMode(){
+      return store.state.darkMode
+    }
+  },
    methods: {
-     fn(){
-        this.checked = !this.checked
-        this.$emit('update:checks',this.checked);
-      }
+     increase:store.mutations.increase
    }
 };
 </script>

@@ -1,17 +1,17 @@
 <template>
-  <div :class='{dark:false}'>
+  <div :class='{dark:darkMode}'>
     <router-view/>
   </div>
 </template>
 
 <script>
+import store from "./store";
 export default {
-  data(){
-    return {
-      visible:false
+  computed:{
+    darkMode(){
+      return store.state.darkMode
     }
   },
-  created() {}
 }
 </script>
 <style>
