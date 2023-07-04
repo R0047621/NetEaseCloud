@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div @click=" $router.push(`/SingingListDetails:id=${date.creativeId}`)">
       <div class='w-[31vw] h-[31vw] rounded-[8px] overflow-hidden relative pt-[1vw]'>
          <img :src='date.uiElement?.image.imageUrl' alt='' class='w-[31vw] h-[31vw] rounded-[8px] relative z-[1]'>
          <Icon icon="ion:play" width="10" class='absolute bottom-[2vw] right-[2.5vw] text-[#fff] w-[5vw] h-[5vw]  z-[2]'/>

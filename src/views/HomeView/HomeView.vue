@@ -128,7 +128,7 @@
               </div>
             </div>
           </div>
-          <LeftSidebarModuleView v-for='item in DrawerData' :key='item' :item='item' :checks.sync='darkMode'/>
+          <LeftSidebarModuleView v-for='item in DrawerData' :key='item' :item='item'/>
           <div class='dark:bg-[#2c2c2c] h-[12vw] px-[3.6vw] bg-[#fff] w-[76vw] mt-[4vw] rounded-[15px] mx-auto leading-[12vw] text-center text-[3.6vw] text-[#ef4239] '>关闭云音乐</div>
         </div>
       </div>
@@ -147,10 +147,15 @@ import TalkItem from './components/TalkItem.vue'
 import Banner from './components/Banner.vue';
 import LeftSidebarModuleView from './components/LeftSidebarModuleView.vue';
 import {Search, Swipe, SwipeItem} from 'vant';
-
+import store from "../../store";
 
 
 export default {
+  computed:{
+    darkMode(){
+      return store.state.darkMode
+    }
+  },
   components:{ LeftSidebarModuleView, RankingItem,RecommendItem,TitleItem,NewSongItem,MenuItem,TalkItem,Banner ,VanSwipe: Swipe, VanSwipeItem: SwipeItem,},
   data() {
     return {
@@ -215,7 +220,7 @@ export default {
           ]
         },
       ],
-      darkMode:false,//主题
+      // darkMode:false,//主题
     }
   },
   mounted() {
@@ -231,7 +236,8 @@ export default {
     init(name) {
       this.bs = new BScroll(name, {
         scrollX: true,
-        probeType: 3
+        probeType: 3,
+        click: true,
       })
     },
     init1(name) {
@@ -275,6 +281,9 @@ export default {
         return playVolume;
       }
     },
+    fns(){
+      console.log(123)
+    }
   },
   updated() {
     this.bs.refresh();
