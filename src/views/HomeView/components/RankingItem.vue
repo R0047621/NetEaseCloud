@@ -11,7 +11,7 @@
     </li>
     <li class='pl-[2vw] w-[88vw] scroll-content pt-[2.7vw]'  v-for='(item1,index) in date.resources' :key='item1.id'>
       <div class='flex'>
-        <img :src=item1.uiElement.image.imageUrl alt='' class='w-[14.5vw] h-[14.5vw] rounded-[10px] flex-5'>
+        <img :src=item1.uiElement.image?.imageUrl alt='' class='w-[14.5vw] h-[14.5vw] rounded-[10px] flex-5'>
         <div class='flex-1 ml-[1vw] flex items-center pr-[5.7vw] pl-[3.26vw]'>
           <div class='leading-[14vw] font-[800] flex-3 mr-[3vw] text-[#C28E28] text-[2.8vw]' v-if='index === 0'>{{index + 1}}</div>
           <div class='leading-[14vw] font-[800] flex-3 mr-[3vw] text-[#818AAC] text-[2.8vw]' v-else-if='index === 1'>{{index + 1}}</div>

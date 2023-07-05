@@ -9,6 +9,7 @@
 <script>
 import Dialog from "../components/Dialog";
 import store from "../store";
+import {getUserAccount, getuserAccount, getUserDetail} from '../repuest'
 
 export default {
   computed:{
@@ -26,6 +27,12 @@ export default {
     },
     increase:store.mutations.increase
   },
+  async created(){
+    const res = await getUserAccount();
+    const res1 = await getUserDetail(res.data.profile.userId);
+    console.log('用户详情',res1.data);
+    console.log('账号信息',res.data);
+  }
 
 }
 </script>

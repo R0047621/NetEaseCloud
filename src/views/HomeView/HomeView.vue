@@ -48,7 +48,7 @@
               </div>
               <div class='dark:bg-[#272727] w-[26vw] h-[31vw] bg-[#ddd] absolute top-[0vw] left-1/2 -translate-x-1/2 rounded-[8px] z-[0]'></div>
             </div>
-            <RecommendItem v-for='item in personalized' :date='item' class='w-[31vw] ml-[3vw]'/>
+            <RecommendItem v-for='item in personalized' :date='item' class='w-[31vw] ml-[3vw]' />
           </div>
         </div>
 
@@ -101,9 +101,11 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center">
               <div class="w-[7vw] h-[7vw] rounded-[50%] mr-[2vw] bg-[#f4f4f1] flex items-center justify-center overflow-hidden">
-                <Icon icon="gridicons:user" class=" text-[#f9dada] w-[7vw] h-[7vw]" />
+                <Icon icon="gridicons:user" class=" text-[#f9dada] w-[7vw] h-[7vw]" v-if="!userExist"/>
+                <img src="" alt="" class="w-[7vw] h-[7vw] rounded-[50%]" v-else>
               </div>
-              <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]">立即登录</span>
+              <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" v-if="userExist">{{ user.profile?.nickname }}</span>
+              <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" v-else>立刻登录</span>
               <Icon icon="mingcute:right-line" class="dark:text-[#f0f0f0] text-[#383838] text-[4vw]" />
             </div>
           </div>
@@ -129,14 +131,14 @@
             </div>
           </div>
           <LeftSidebarModuleView v-for='item in DrawerData' :key='item' :item='item'/>
-          <div class='dark:bg-[#2c2c2c] h-[12vw] px-[3.6vw] bg-[#fff] w-[76vw] mt-[4vw] rounded-[15px] mx-auto leading-[12vw] text-center text-[3.6vw] text-[#ef4239] '>关闭云音乐</div>
+          <div class='dark:bg-[#2c2c2c] h-[12vw] px-[3.6vw] bg-[#fff] w-[76vw] mt-[4vw] rounded-[15px] mx-auto leading-[12vw] text-center text-[3.6vw] text-[#ef4239]' @click="exit">关闭云音乐</div>
         </div>
       </div>
     </Drawer>
   </div>
 </template>
 <script>
-import { homepageList ,calendar,dragonBall,hotTopic} from '../../repuest'
+import {homepageList, calendar, dragonBall, hotTopic, getUserAccount, getUserDetail} from '../../repuest'
 import BScroll from '@better-scroll/core'
 import RecommendItem from './components/RecommendItem.vue';
 import RankingItem from './components/RankingItem.vue';
@@ -147,18 +149,22 @@ import TalkItem from './components/TalkItem.vue'
 import Banner from './components/Banner.vue';
 import LeftSidebarModuleView from './components/LeftSidebarModuleView.vue';
 import {Search, Swipe, SwipeItem} from 'vant';
-import store from "../../store";
+// import store from "../../store";
+import store from "storejs";
+import Dialog from "../../components/Dialog";
 
 
 export default {
-  computed:{
-    darkMode(){
-      return store.state.darkMode
-    }
-  },
-  components:{ LeftSidebarModuleView, RankingItem,RecommendItem,TitleItem,NewSongItem,MenuItem,TalkItem,Banner ,VanSwipe: Swipe, VanSwipeItem: SwipeItem,},
+  // computed:{
+  //   darkMode(){
+  //     return store.state.darkMode
+  //   }
+  // },
+  components:{LeftSidebarModuleView, RankingItem,RecommendItem,TitleItem,NewSongItem,MenuItem,TalkItem,Banner ,VanSwipe: Swipe, VanSwipeItem: SwipeItem,},
   data() {
     return {
+      user:{},//用户信息
+      userExist:false,
       menu: [],//菜单
       banners: [],//轮播
       ball:[],//菜单
@@ -233,6 +239,7 @@ export default {
     this.animateItems();
   },
   methods: {
+    store,
     init(name) {
       this.bs = new BScroll(name, {
         scrollX: true,
@@ -281,8 +288,16 @@ export default {
         return playVolume;
       }
     },
-    fns(){
-      console.log(123)
+    exit(){
+      Dialog({message:'确定退出当前账号吗？'}).then(()=>{
+        console.log('点击了确定');
+        store.remove('__m__cookie');
+        store.remove('__m__User');//删除用户信息
+        store.remove('__m__UserData');//删除账号信息
+        this.$router.push('/Login');
+      }).catch(()=>{
+        console.log('点击了取消')
+      })
     }
   },
   updated() {
@@ -292,11 +307,10 @@ export default {
     const res = await homepageList();
     this.banners = res.data.data.blocks[0].extInfo.banners;  //轮播
     this.personalized = res.data.data.blocks[1].creatives.slice(1,res.data.data.blocks[1].creatives.length);//推荐歌单
+    this.resources = res.data.data.blocks[1].creatives[0].resources//推荐歌单轮播
     this.charts = res.data.data.blocks[3].creatives//排行榜
-    this.song = res.data.data.blocks[5].creatives // 新歌速递
-    this.resources = res.data.data.blocks[1].creatives[0].resources
+    this.song = res.data.data.blocks[2].creatives // 新歌速递
     this.resourceData = this.resources[0].uiElement.mainTitle.title;
-    console.log(this.personalized);
     // 菜单
     const res1 = await dragonBall();
     this.ball = res1.data.data;
@@ -306,6 +320,8 @@ export default {
     //热门话题
     const res3 = await hotTopic();
     this.hotTopic = res3.data.events
+    if(store.get('?__m__User')) this.userExist = true;
+
   },
 
 }

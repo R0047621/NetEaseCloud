@@ -16,7 +16,6 @@ export default function (option){
            methods:{resolve,reject}
        });
        instanceDialog.$mount();
-       console.log(instanceDialog.$el);
        document.querySelector('body').appendChild(instanceDialog.$el);
    })
 }
