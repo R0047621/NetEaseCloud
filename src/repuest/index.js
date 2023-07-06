@@ -22,8 +22,6 @@ export const calendar = () => http.get(`/calendar?startTime=${getPreviousDayTime
 export const dragonBall = ()=>http.get('/homepage/dragon/ball')
 //热门话题
 export const hotTopic = () =>http.get('/topic/detail/event/hot?actid=111551188')
-//推荐歌单
-export const personalized =() => http.get('/personalized?limit=11');
 // 猜你喜欢
 export const detail = () => http.get('/search/hot/detail');
 // 获取歌单所有歌曲

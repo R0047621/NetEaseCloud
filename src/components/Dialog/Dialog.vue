@@ -46,15 +46,6 @@ export default {
       this.resolve()
     }
   }
-  // props:{
-  //   title:{
-  //     type:String
-  //   },
-  //   message:{
-  //     type:String,
-  //     required:true
-  //   }
-  // }
 }
 </script>
 

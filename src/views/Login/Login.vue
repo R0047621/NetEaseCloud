@@ -41,29 +41,35 @@ export default {
     async fn(){
       const res = await getQrKey().catch(err=>{console.log(err);})
       const qrinfo = await getQrInfo(res.data.data.unikey).catch(err=>{console.log(err);})
-      if (typeof timer === 'number') {clearInterval(timer)}
-      this.pollingCheck(res.data.data.unikey);
       this.qrcode = qrinfo.data.data.qrimg;
-      this.code = 801
+      this.pollingCheck(res.data.data.unikey);
     },
     pollingCheck(key,interval = 1000){
       const timer = setInterval(async ()=>{
+
         const res = await checkQrStatus(key);
-        if(res.data.code === 800){this.code = 800;clearInterval(timer);}
-        if(res.data.code === 802){this.code = 802;}
         if(res.data.code === 803){
-          clearInterval(timer)
+
+          store.set('__m__cookie',res.data.cookie);//存cookie
+
           const user = await getUserAccount();
           console.log('用户详情',user.data);
-          const userData = await getUserDetail(user.data.profile.userId);
-          console.log('账号信息',userData.data)
-          store.set('__m__cookie',res.data.cookie);//存cookie
+
           store.set('__m__User',user.data);//存用户信息
+          const userData = await getUserDetail(user.data.account.id);
+
+
           store.set('__m__UserData',userData.data);//存账号信息
-          console.log('用户详情',user.data);
-          console.log('账号信息',userData.data);
+          console.log('账号信息',userData.data)
           this.$router.push('/HomeView');
+
         }
+        else if(res.data.code === 802){this.code = 802;}
+        else if(res.data.code === 800){
+          this.code = 800;clearInterval(timer);
+
+        }
+        else {this.code = 801}
         console.log(res.data.code)
       },interval)
 

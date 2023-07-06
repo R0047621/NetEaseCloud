@@ -24,7 +24,6 @@
 
 <script>
 import store from "../../../store";
-
 export default {
   props: ['item'],
   computed:{
@@ -117,4 +116,12 @@ export default {
 .switch input:checked+label::before {
    transform: translateX(0px);
 }
+
+
+
+
+
+
+
+
 </style>
