@@ -114,7 +114,7 @@
         </div>
       </template>
       <div class='dark:bg-[#151515] bg-[#f1f1f1] h-[95vh] scroll-wrapper overflow-hidden' ref='scroll5'>
-        <div class='scroll-content h-[192vh]'>
+        <div class='scroll-content h-[420vw]'>
           <div class='mx-auto w-[76vw] h-[27.66vw] bg-gradient-to-r from-[#3b3b3b] to-[#5f5050] px-[3.96vw] text-[#9e8f8f] rounded-[20px]'>
             <div class='h-[10vw] flex justify-between items-center'>
               <h1 class='text-[3.6vw] text-[#ffeeeb]'>开通黑胶VIP</h1>
