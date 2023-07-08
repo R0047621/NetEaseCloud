@@ -60,9 +60,10 @@ export const ip2Territory = (ip) => axios.get(`http://ip-api.com/json/${ip}?lang
 export const fetchUserPlaylist = (uid) => http.get('/user/playlist', { params: { uid } });
 //评论
 export const fetchUserHistory = (uid) => http.get('/user/comment/history', { params: { uid } });
-// https://netease-cloud-music-api-five-roan-88.vercel.app
-
-export const myComment = (id) => http.get(`/comment/music?id=${id}`)
+//歌曲信息
+export const fetchSongDetail = (ids) => http.get('/song/detail', { params: { ids } });
+// 歌手分类列表
+export const fetchArtistList = () => http.get('/artist/list')
 
 //时间戳
 function getPreviousDayTimestamp() {

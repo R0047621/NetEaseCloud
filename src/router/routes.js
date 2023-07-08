@@ -4,7 +4,7 @@ export default [
     //路径重定向 如果是/默认是IndexView页面
     {
         path:'/',
-        redirect:'/Information',
+        redirect:'/edit',
     },
     {
         path:"/IndexView",//地址栏跳转的路径
@@ -33,7 +33,7 @@ export default [
     {
         path: "/Foo",
         //懒加载组件
-        component: () => import('../views/Foo.vue')
+        component: () => import('../views/示例/Foo.vue')
     },
     {
         path: '/SingingListDetails:id',
@@ -45,10 +45,18 @@ export default [
     },
     {
         path: '/JSX',
-        component: () => import('../views/JSX')
+        component: () => import('../views/示例/JSX')
     },
     {
         path: '/Information',
         component: () => import('../views/Information/Information')
     },
+    {
+        path:'/feta-0708',
+        component: ()=>import('../views/示例/feta-0708.vue')
+    },
+    {
+        path:'/edit',
+        component: ()=>import('../views/Information/edit')
+    }
 ]

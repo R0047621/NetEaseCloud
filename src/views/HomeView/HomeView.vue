@@ -104,7 +104,7 @@
                 <Icon icon="gridicons:user" class=" text-[#f9dada] w-[7vw] h-[7vw]" v-if="!userExist"/>
                 <img :src="user.profile?.avatarUrl" alt="" class="w-[7vw] h-[7vw] rounded-[50%] mt-[-1vw]" v-else>
               </div>
-              <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" v-if="userExist">{{ user.profile?.nickname }}</span>
+              <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" @click="$router.push('/Information')" v-if="userExist">{{ user.profile?.nickname }}</span>
               <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" v-else @click="$router.push('/Login');">立刻登录</span>
               <Icon icon="mingcute:right-line" class="dark:text-[#f0f0f0] text-[#383838] text-[4vw]" />
             </div>

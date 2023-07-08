@@ -54,11 +54,9 @@ export default {
 
           const user = await getUserAccount();
           console.log('用户详情',user.data);
-
           store.set('__m__User',user.data);//存用户信息
+
           const userData = await getUserDetail(user.data.account.id);
-
-
           store.set('__m__UserData',userData.data);//存账号信息
           console.log('账号信息',userData.data)
           this.$router.push('/HomeView');
