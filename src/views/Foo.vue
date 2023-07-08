@@ -1,38 +1,45 @@
-<template>
-  <div>
-    <h1  @click="increase">{{ darkMode }}</h1>
-<!--    <Dialog title="警告" message="我是提示文本"/>-->
-    <button @click="fn">按钮</button>
-  </div>
-</template>
+<!--<template>-->
+<!--  <div>-->
+<!--    <button @click="fn">按钮</button>-->
+<!--  </div>-->
+<!--</template>-->
 
 <script>
-import Dialog from "../components/Dialog";
-import store from "../store";
-import {getUserAccount, getuserAccount, getUserDetail} from '../repuest'
+
 
 export default {
-  computed:{
-    darkMode(){
-      return store.state.darkMode
+  render(createElement) {
+    // return createElement('div',
+    //     {},
+    //     [
+    //       createElement('h1',{on:{click:this.fn}},[this.cont]),
+    //       createElement(),
+    //       createElement()
+    //     ]
+    // )
+    //jsx 元素 是js的一种新的数据类型
+    return (
+      <div>
+        <h1 onClick={this.fn}>{this.cont}</h1>
+        <ul>
+          {}
+        </ul>
+      </div>
+    )
+
+
+  },
+  data(){
+    return {
+      cont:123,
+      arr:[1,2,3,4]
     }
   },
   methods:{
     fn(){
-      Dialog({title:'警告',message:'我是提示文本'}).then(function(){
-        console.log('点击了确定');
-      }).catch(function(){
-        console.log('点击了取消')
-      })
-    },
-    increase:store.mutations.increase
+      console.log(1123)
+    }
   },
-  async created(){
-    const res = await getUserAccount();
-    const res1 = await getUserDetail(res.data.profile.userId);
-    console.log('用户详情',res1.data);
-    console.log('账号信息',res.data);
-  }
 
 }
 </script>

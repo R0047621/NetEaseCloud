@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -85,6 +84,7 @@ module.exports = {
       // 将 "@"" 指向 "./src" 目录
       '@': path.resolve(__dirname, 'src'),
     },
+    extensions:['.js','.json','.jsx']
   },
 
   module: {
@@ -133,7 +133,13 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
-      }
+      },
+      {
+        test: /\.jsx?$/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
     ],
   },
 };

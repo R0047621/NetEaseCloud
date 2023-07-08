@@ -52,9 +52,17 @@ export async function playlist() {
   return (playlist.map(item => item.data.playlist))
 }
 
+//ip
+export const getIPAddr = () => axios.get('https://api.ipify.org?format=json')
+export const ip2Territory = (ip) => axios.get(`http://ip-api.com/json/${ip}?lang=zh-CN`)
 
+// 收藏歌单
+export const fetchUserPlaylist = (uid) => http.get('/user/playlist', { params: { uid } });
+//评论
+export const fetchUserHistory = (uid) => http.get('/user/comment/history', { params: { uid } });
+// https://netease-cloud-music-api-five-roan-88.vercel.app
 
-
+export const myComment = (id) => http.get(`/comment/music?id=${id}`)
 
 //时间戳
 function getPreviousDayTimestamp() {

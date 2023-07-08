@@ -1,14 +1,10 @@
 import indexView from '../views/index.vue';
-import HomeView from '../views/HomeView/HomeView.vue';
-import Search from '../views/Search/Search.vue'
-import Genre from '../views/Genre/Genre.vue'
-import Singer from '../views/Singer/Singer.vue'
-import Zone from '../views/Zone/Zone.vue'
+
 export default [
     //路径重定向 如果是/默认是IndexView页面
     {
         path:'/',
-        redirect:'/Login',
+        redirect:'/Information',
     },
     {
         path:"/IndexView",//地址栏跳转的路径
@@ -16,23 +12,23 @@ export default [
     },
     {
         path:"/HomeView",
-        component:HomeView
+        component:()=>import('../views/HomeView/HomeView.vue')
     },
     {
         path:"/Search",
-        component:Search
+        component:()=>import('../views/Search/Search.vue')
     },
     {
         path:"/Genre",
-        component:Genre
+        component:()=>import('../views/Genre/Genre.vue')
     },
     {
         path:"/Singer",
-        component:Singer
+        component:()=>import('../views/Singer/Singer.vue')
     },
     {
         path:"/Zone",
-        component:Zone
+        component:()=>import('../views/Zone/Zone.vue')
     },
     {
         path: "/Foo",
@@ -46,5 +42,13 @@ export default [
     {
         path: '/Login',
         component: () => import('../views/Login/Login.vue')
-    }
+    },
+    {
+        path: '/JSX',
+        component: () => import('../views/JSX')
+    },
+    {
+        path: '/Information',
+        component: () => import('../views/Information/Information')
+    },
 ]
