@@ -102,7 +102,7 @@
             <div class="flex items-center">
               <div class="w-[7vw] h-[7vw] rounded-[50%] mr-[2vw] bg-[#f4f4f1] flex items-center justify-center overflow-hidden">
                 <Icon icon="gridicons:user" class=" text-[#f9dada] w-[7vw] h-[7vw]" v-if="!userExist"/>
-                <img :src="user.profile?.avatarUrl" alt="" class="w-[7vw] h-[7vw] rounded-[50%] mt-[-1vw]" v-else>
+                <img :src="user.profile?.avatarUrl" alt="" class="w-[7vw] h-[7vw] rounded-[50%]" v-else>
               </div>
               <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" @click="$router.push('/Information')" v-if="userExist">{{ user.profile?.nickname }}</span>
               <span class="dark:text-[#f0f0f0] text-[#383838] text-[3.5vw]" v-else @click="$router.push('/Login');">立刻登录</span>
@@ -136,10 +136,12 @@
         </div>
       </div>
     </Drawer>
+
+
   </div>
 </template>
 <script>
-import {homepageList, calendar, dragonBall, hotTopic, getUserAccount, getUserDetail} from '../../repuest'
+import {homepageList, calendar, dragonBall, hotTopic, getUserAccount, getUserDetail} from '../../request'
 import BScroll from '@better-scroll/core'
 import RecommendItem from './components/RecommendItem.vue';
 import RankingItem from './components/RankingItem.vue';
@@ -155,11 +157,6 @@ import Dialog from "../../components/Dialog";
 
 
 export default {
-  // computed:{
-  //   darkMode(){
-  //     return store.state.darkMode
-  //   }
-  // },
   components:{LeftSidebarModuleView, RankingItem,RecommendItem,TitleItem,NewSongItem,MenuItem,TalkItem,Banner ,VanSwipe: Swipe, VanSwipeItem: SwipeItem,},
   data() {
     return {

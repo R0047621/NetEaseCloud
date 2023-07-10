@@ -46,7 +46,7 @@
 
 </template>
 <script>
-import {playlist, fetchSearchDefault, fetchSearchResult, detail} from '../../repuest'
+import {playlist, fetchSearchDefault, fetchSearchResult, detail} from '../../request'
 import HorizontalSlidingList from "./components/HorizontalSlidingList.vue";
 import _ from 'lodash'
 export default {

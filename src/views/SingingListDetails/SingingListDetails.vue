@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="top" :style="`background: ${gradientColor}`" class="duration-500 relative bg-gradient-to-br from-[#486D8D] to-[#6186AB] pb-[5vw] pl-[3.9vw] pr-[3.4vw] pt-[13.5vw]">
+    <div ref="top" :style="`background: ${gradientColor}`" class="h-[70vw] transition-all duration-20 0 relative bg-gradient-to-br from-[#486D8D] to-[#6186AB] pb-[5vw] pl-[3.9vw] pr-[3.4vw] pt-[13.5vw]">
       <!--头部-->
       <nav class="a2 pl-[3.9vw] pr-[3.4vw] h-[13.5vw] flex items-center justify-between ">
         <div class="flex items-center">
@@ -31,7 +31,11 @@
       <div v-show="tab" class="transition-all fade-in">
         <section class="h-[29vw] flex pt-[2.6vw]  justify-between">
           <div class="w-[24vw] h-[25vw] pt-[1vw] relative">
-            <img :src="title.data?.playlist.coverImgUrl" alt="" class="w-[24vw] h-[24vw] rounded-[10px] relative z-[2]">
+            <img  alt="" class="w-[24vw] h-[24vw] rounded-[10px] relative z-[2] " v-lazy="{
+              src:title.data?.playlist.coverImgUrl,
+              loading:'/static/loading.png',
+              error:'/static/loading.png',
+            }" >
             <div class="w-[20vw] h-[10vw]  bg-opacity-20 bg-[#fff] absolute top-0 left-1/2 -translate-x-1/2 rounded-[6px] z-[1]"></div>
             <div  class="absolute top-0 left-0 pr-[1.4vw] pt-[2vw]  justify-end font-[800] text-[#fff] flex items-center w-[24vw] z-[2]  transform scale-80">
               <Icon icon="ion:play" width="10" class='text-[#fff] w-[3vw] h-[3vw]' />
@@ -76,7 +80,7 @@
       </div>
 
       <div class="absolute right-[3.4vw] top-[15vw] w-[6vw] h-[6vw] rounded-[50%]  bg-opacity-20 bg-[#fff] flex items-center justify-center" @click="fn">
-        <Icon icon="ep:arrow-up-bold" color="white" :rotate="2" class="text-[3vw] mt-[0.5vw]"/>
+        <Icon icon="ep:arrow-up-bold" color="white" :rotate="2" class="text-[3vw] mt-[0.5vw]" :style="{transform:!tab ? 'rotate(180deg)' : 'rotate(0deg)'}"/>
       </div>
 
       <div class="flex items-center mt-[3.5vw]">
@@ -95,7 +99,7 @@
       <!--头部-->
       <nav class="a1 h-[13vw] flex items-center  justify-between">
         <div class="flex items-center">
-          <Icon icon="heroicons-solid:play" class="text-[#ED3E20] text-[8vw]"/>
+          <Icon icon="heroicons-solid:play" class="text-[#ED3E20] text-[8vw]" @click.native="playAll"/>
           <span class="text-[#25272C] text-[3.7vw] ml-[3.9vw] mr-[2.3vw]">播放全部</span>
           <span class="text-[#8C9094] text-[2.7vw]">({{data.data?.songs?.length}})</span>
         </div>
@@ -125,7 +129,7 @@
   </div>
 </template>
 <script>
-import  {playlistDetail, playlistTrackAll, relatedPlaylist} from '../../repuest'
+import  {playlistDetail, playlistTrackAll, relatedPlaylist} from '../../request'
 import {all} from "axios";
 import BScroll from '@better-scroll/core'
 import RecommendItem from "../HomeView/components/RecommendItem.vue";
@@ -141,6 +145,10 @@ export default {
     this.bs.refresh();
   },
   methods: {
+    playAll(){
+      window.$player.replacePlaylist(this.data.data.songs.map((song) => song.id,'','',''));
+      console.log('$player',window.$player._currentTrack?.al?.picUrl);
+    },
     all,
     dataTruncation(playVolume) {
       if (playVolume > 100000000) {
@@ -160,6 +168,7 @@ export default {
     },
     fn() {
       this.tab = !this.tab;
+      !this.tab? this.$refs.top.style.height = '82vw' : this.$refs.top.style.height = '70vw'
     },
     //滚动条触发事件
     listener() {
@@ -189,7 +198,8 @@ export default {
     this.title = await playlistDetail(this.$route.params.id.replace(':id=',''))
     this.data = await playlistTrackAll(this.$route.params.id.replace(':id=',''))
     this.relatedPlay = await relatedPlaylist(this.$route.params.id.replace(':id=',''));
-    console.log(this.relatedPlay.data.playlists);
+    // console.log(this.relatedPlay.data.playlists);
+    console.log(this.data);
   },
 }
 </script>

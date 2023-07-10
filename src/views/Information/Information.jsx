@@ -1,5 +1,5 @@
 import store from "storejs";
-import {getIPAddr,ip2Territory,fetchUserPlaylist,fetchUserHistory,fetchSongDetail,fetchArtistList} from '../../repuest'
+import {getIPAddr,ip2Territory,fetchUserPlaylist,fetchUserHistory,fetchSongDetail,fetchArtistList} from '../../request'
 import BScroll from '@better-scroll/core'
 import dayjs from 'dayjs';//引入插件
 import 'dayjs/locale/zh-cn';//引入汉化包
@@ -40,7 +40,7 @@ export default {
                         <div class='flex items-center justify-center'>
                             <span class='dark:border-[#383838] dark:text-[#EEEEEE] px-[3vw] py-[1vw] text-[#41495E] text-[2.9vw] font-[800] flex items-center justify-center border-[1px] border-[#CCCCCD] rounded-[200px] ml-[1.5vw]' onClick={()=>this.$router.push('/edit')}>编辑资料</span>
                             <span class='dark:border-[#383838] dark:text-[#EEEEEE] w-[7.7vw] h-[7.7vw] text-[#41495E] text-[2.9vw] font-[800] flex items-center justify-center border-[1px] border-[#CCCCCD] rounded-[200px] ml-[1.5vw]'>
-                                <Icon icon="formkit:down" class='text-[2vw] mt-[0.6vw]' nativeOnClick={this.fn}/>
+                                <Icon icon="ep:arrow-up-bold" color="white" class='text-[3vw] mt-[0.6vw]' rotate={this.show?4:2} nativeOnClick={this.fn}/>
                             </span>
                         </div>
                         {/*喜欢*/}
@@ -60,14 +60,14 @@ export default {
                     </div>
 
                     {/*tab切换*/}
-                       <div>
-                           {/*选项*/}
-                            <nav class="flex justify-evenly h-[15vw] items-center font-semibold relative w-[80vw] mx-auto">
-                                <div class="dark:text-[#f1f1f1] text-[#2a3146] text-[3.3vw]">主页</div>
-                                <div class="dark:text-[#8B8B8B] text-[#9095a1] text-[3.3vw]">动态</div>
-                                <div class="dark:text-[#8B8B8B] text-[#9095a1] text-[3.3vw]">播客</div>
-                                <div class="absolute bg-[#eb474e] w-[3.3vw] h-[1vw] rounded-[20vw] bottom-[2vw] left-[16.4vw]"></div>
-                            </nav>
+                    <div>
+                        {/*选项*/}
+                        <nav class="flex justify-evenly h-[15vw] items-center font-semibold relative w-[80vw] mx-auto">
+                            <div class="dark:text-[#f1f1f1] text-[#2a3146] text-[3.3vw]">主页</div>
+                            <div class="dark:text-[#8B8B8B] text-[#9095a1] text-[3.3vw]">动态</div>
+                            <div class="dark:text-[#8B8B8B] text-[#9095a1] text-[3.3vw]">播客</div>
+                            <div class="absolute bg-[#eb474e] w-[3.3vw] h-[1vw] rounded-[20vw] bottom-[2vw] left-[16.4vw]"></div>
+                        </nav>
                         {/*卡片*/}
                         <div>
                             {/*音乐品味*/}
@@ -136,7 +136,7 @@ export default {
                                                 {item.trackCount}首，By{item.creator.nickname}，播放{this.dataTruncation(item.playCount)}次
                                             </p>
                                         </div>
-                                    </li>:<div></div>))}
+                                    </li>:<li></li>))}
                                 </ul>
                                 {this.collect.length >= 10 ? <div class='dark:border-[#434343] border-t-[1px] border-[#EAEAEA] text-[3vw] text-[#999] flex items-center justify-center h-[9vw]'>查看全部<Icon
                                     icon="ps:right" class='ml-[1vw] text-[2.5vw] font-[800]'/></div> : <div></div>}
@@ -200,7 +200,6 @@ export default {
     },
     methods: {
         fn(){
-
             this.show = !this.show;
             this.init()
         },

@@ -75,3 +75,14 @@ function getPreviousDayTimestamp() {
   return [startTimestamp,endTimestamp]
 }
 
+export const getTrackDetail = (id) => http.get('/song/detail', { params: { ids: id } });
+
+export const getMP3 = (id) => http.get('/song/url/v1',{params:{id,level:'standard'}})
+
+
+
+//修改昵称
+export const fetchUserUpdata = (nickname) => http.get('/user/update', { params: { nickname } });
+//昵称修改判断是否重复
+export const featNicknameCheck = (nickname) => http.get('/nickname/check', { params: { nickname } });
+

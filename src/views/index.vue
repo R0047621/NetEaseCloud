@@ -31,7 +31,7 @@
 </template>
 <script>
 import BScroll from '@better-scroll/core'
-import {fetchPlaylistHot,fetchPlaylist } from '../repuest/index'
+import {fetchPlaylistHot,fetchPlaylist } from '../request/index'
 //每一个.vue都是一个组件(带有一定结构，功能，样式的标签) 类似于html标签
 
 export default{
