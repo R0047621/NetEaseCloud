@@ -2,7 +2,7 @@
   <div class='dark:bg-[#2c2c2c] rounded-[15px] bg-[#fff] w-[76vw] mx-auto mt-[4vw]'>
     <div v-if='item.title' class="dark:border-b-[#333] text-[#969696] text-[3vw] px-[4vw] py-[3vw] border-b-[0.35vw] border-b-[#E8e8e8]">{{ item.title }}</div>
     <div class="px-[4vw]">
-      <div v-for='item1 in item.data' :key='item1' class="flex items-center justify-between h-[12vw] px-[3.6vw]"  >
+      <div v-for='item1 in item.data' :key='item1.id' class="flex items-center justify-between h-[12vw] px-[3.6vw]"  >
         <div class="flex items-center">
           <Icon :icon="item1.icon" class='dark:text-[#f0f0f0] text-[#333] font-[800] w-[4vw] h-[4vw]' />
           <span class="dark:text-[#f0f0f0]  text-[color:#333333] text-[3.5vw] ml-[2.73vw]">{{item1.name}}</span>

@@ -15,19 +15,12 @@ module.exports = {
     // 清理冗余文件
     clean: true,
   },
-
-  externals: {
-    vue: 'Vue',
-  },
-
   // 插件设置
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html', // 设置html模板
       cdn: {
-        script: [
-          'https://cdn.jsdelivr.net/npm/vue@2',
-        ],
+        script: [],
         // 空数组代表不需要引入样式文件
         style: [],
       },
@@ -83,6 +76,7 @@ module.exports = {
     alias: {
       // 将 "@"" 指向 "./src" 目录
       '@': path.resolve(__dirname, 'src'),
+      vue:'vue/dist/vue.esm.js'
     },
     extensions:['.js','.json','.jsx']
   },

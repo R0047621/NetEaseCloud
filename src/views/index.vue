@@ -3,9 +3,7 @@
       <div class="flex w-[92vw]  mx-auto" >
           <div class="w-[80vw] overflow-hidden h-[17.61vw] scroll-wrapper " ref="scroll">
               <ul class="flex w-[130vw] h-[17.61vw] text-[#666666]  scroll-content">
-                  <li v-for="item in menu" :key="item.id"
-                  class="flex items-center text-[3.42vw] font-[800] mx-0 w-[12.8vw] text-center scroll-item"
-                  :class="{active:item.name === activeMenuItem}" @click="toggleMenu(item.name)">
+                  <li v-for="item in menu" :key="item.id" class="flex items-center text-[3.42vw] font-[800] mx-0 w-[12.8vw] text-center scroll-item" :class="{active:item.name === activeMenuItem}" @click="toggleMenu(item.name)">
                       <span class="w-[12.8vw]  block overflow-hidden whitespace-nowrap text-ellipsis">{{item.name}}</span>
                       <i :class="{line:item.name === activeMenuItem}"></i>
                   </li>

@@ -68,7 +68,7 @@
         <div class="h-[10vw] flex items-center text-[#fff] opacity-50 text-[3vw]">喜欢这个歌单的用户也听了</div>
         <div class="w-[95vw] scroll-wrapper overflow-hidden" ref="scroll">
           <div class="flex w-[160vw]">
-            <div v-for="item in relatedPlay.data?.playlists" :key="item" class="w-[28vw] mr-[2.5vw]">
+            <div v-for="item in relatedPlay.data?.playlists" :key="item.id"  class="w-[28vw] mr-[2.5vw]">
               <div class='w-[28vw] h-[28vw] rounded-[8px] overflow-hidden relative pt-[1vw]'>
                 <img :src='item?.coverImgUrl' alt='' class='w-[28vw] h-[28vw] rounded-[8px] relative z-[1]'>
                 <div class='dark:bg-[#272727] w-[26vw] h-[28vw]  bg-opacity-20 bg-[#fff] absolute top-[0vw] left-1/2 -translate-x-1/2 rounded-[8px] z-[0]'></div>
@@ -109,7 +109,7 @@
         </div>
       </nav>
       <div>
-        <div class="flex items-center h-[14vw]" v-for="(item, index) in data.data?.songs" :key="item.id">
+        <div class="flex items-center h-[14vw]" v-for="(item, index) in data.data?.songs" :key="item.id"   @click="playSingle(item.id)">
           <div class="w-[4vw] text-[#bfbfbf] text-[3vw] text-center mr-[3.52vw] font-medium">{{ index + 1 }}</div>
           <div class="font-medium text-[3.6vw] w-[64vw]">
             <div class="text-[3.6vw] text-ellipsis overflow-hidden whitespace-nowrap w-[50vw] text-[#949797]">
@@ -134,11 +134,13 @@ import {all} from "axios";
 import BScroll from '@better-scroll/core'
 import RecommendItem from "../HomeView/components/RecommendItem.vue";
 import { debounce } from 'lodash';
+import store from "storejs";
 export default {
   components: {RecommendItem},
   mounted() {
     this.init(this.$refs.scroll);
     window.addEventListener('scroll', this.listener, true);  // 监听（绑定）滚轮滚动事件
+    this.$on("hook:beforeDestroy", () => window.removeEventListener('scroll', this.listener, true));
     this.generateRandomColor();
   },
   updated() {
@@ -146,8 +148,9 @@ export default {
   },
   methods: {
     playAll(){
-      window.$player.replacePlaylist(this.data.data.songs.map((song) => song.id,'','',''));
-      console.log('$player',window.$player._currentTrack?.al?.picUrl);
+      this.$player.replacePlaylist(this.data.data.songs.map((song) => song.id,'','',''));
+      store.set('cookie_music',this.data.data.songs)
+      this.$router.push('/PlayerHome')
     },
     all,
     dataTruncation(playVolume) {
@@ -184,6 +187,12 @@ export default {
       this.gradientColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
       return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
     },
+    // 播放器 播放单个
+    playSingle(id) {
+      this.$player.replacePlaylist([id], '', '');
+      store.set('cookie_music', this.data.data.songs);
+      this.$router.push('/PlayerHome')
+    },
   },
   data(){
     return {
@@ -191,15 +200,14 @@ export default {
       data:[],//歌单所有歌曲
       relatedPlay:[],//猜你喜欢
       tab:true,//切换
-      index:false// 背景切换
+      index:false,// 背景切换
+      gradientColor:'',
     }
   },
   async created(){
     this.title = await playlistDetail(this.$route.params.id.replace(':id=',''))
     this.data = await playlistTrackAll(this.$route.params.id.replace(':id=',''))
     this.relatedPlay = await relatedPlaylist(this.$route.params.id.replace(':id=',''));
-    // console.log(this.relatedPlay.data.playlists);
-    console.log(this.data);
   },
 }
 </script>

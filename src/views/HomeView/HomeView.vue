@@ -1,5 +1,5 @@
 <template>
-  <div class='bg-[#F4F4F4]' :class='{dark:darkMode}'>
+  <div class='bg-[#F4F4F4]'>
     <div class='h-[100vh]' :class='drawerVisible?"overflow-hidden":"overflow-auto"'>
       <div class="dark:from-[#2c1a2b] dark:to-[#1a1c23] bg-gradient-to-b from-[#E6E6FB] to-[#f1f1f1] opacity-0.2">
         <div class="w-[100vw] h-[20vw] p-[3vw] pl-[1vw] flex justify-between items-center">
@@ -26,8 +26,8 @@
         <!--菜单-->
         <div class=' w-[92vw] mx-auto overflow-hidden scroll-wrapper h-[20vw]' ref="scroll">
           <div class='flex w-[190vw] mx-auto overflow-hidden  h-[20vw] scroll-content relative'>
-            <MenuItem class=' w-[19vw] scroll-item  flex items-center justify-center flex-wrap mr-[6vw]' v-for='item in ball' :key='item.id' :date='item'/>
-            <span class='dark:text-[#1a1c23] absolute  top-[-1vw] w-[13vw] h-[19vw] flex  justify-center items-center text-[3.5vw] text-[#fff] font-[800]'><span>{{ new Date().getDate() }}</span></span>
+            <MenuItem class=' w-[19vw] scroll-item  flex items-center justify-center flex-wrap mr-[6vw]' v-for='(item,index) in ball' :key='index' :date='item'/>
+            <span class='dark:text-[#1a1c23] absolute  text-center top-[-1vw] w-[15vw] h-[19vw]  leading-[19vw]  items-center text-[3.5vw] text-[#fff] font-[800]'>{{ new Date().getDate() }}</span>
           </div>
         </div>
         <!--推荐歌单 -->
@@ -37,7 +37,7 @@
             <div class='pt-[1vw] relative'>
               <div class='w-[31vw] relative z-[1]'>
                 <div class='dark:bg-[#1A1C23] w-[31vw] h-[31vw] bg-[#f3f3f3] overflow-hidden relative rounded-[8px]'>
-                  <transition name='abc'  v-for=" (item,index) in resources" :key="item">
+                  <transition name='abc'  v-for=" (item,index) in resources" :key="index">
                     <div v-if='visible === index' class='absolute top-0 left-0"'>
                       <img :src='item.uiElement.image.imageUrl' alt='' class='w-[31vw] h-[31vw] rounded-[8px]'>
                     </div>
@@ -81,7 +81,7 @@
         <div class='w-[91vw] pt-[1vw] ml-[2vw] overflow-hidden scroll-wrapper border-[#EBEDF2]'>
           <div class='scroll-content flex w-[540vw] mb-[6.31vw]'>
             <ul class='dark:bg-[#25272e] w-[91vw] scroll-item shadows bg-[#fff] mr-[2vw] rounded-[10px] px-[4vw] pt-[4vw] pb-[3.8vw]  '>
-              <li class='flex mt-[3vw]' v-for='item in calendarEvents'>
+              <li class='flex mt-[3vw]' v-for='item in calendarEvents' :key="item.id">
                 <div class='flex-1'>
                   <p class='dark:text-[#ebeaf0] text-[2.72vw] text-[#AAADB5]'>{{new Date().getMonth()+1}}/{{new Date().getDate()}}</p>
                   <div class='dark:text-[#a5a7ae] text-[3.68vw] text-[#3E4558]'>{{item.title}}</div>
@@ -130,7 +130,7 @@
               </div>
             </div>
           </div>
-          <LeftSidebarModuleView v-for='item in DrawerData' :key='item' :item='item'/>
+          <LeftSidebarModuleView v-for='item in DrawerData' :key='item.id' :item='item'/>
           <div class='dark:bg-[#2c2c2c] h-[12vw] px-[3.6vw] bg-[#fff] w-[76vw] mt-[4vw] rounded-[15px] mx-auto leading-[12vw] text-center text-[3.6vw] text-[#ef4239]' @click="exit" v-if="!userExist">关闭云音乐</div>
           <div class='dark:bg-[#2c2c2c] h-[12vw] px-[3.6vw] bg-[#fff] w-[76vw] mt-[4vw] rounded-[15px] mx-auto leading-[12vw] text-center text-[3.6vw] text-[#ef4239]' @click="exit" v-else>退出登录</div>
         </div>
@@ -303,8 +303,6 @@ export default {
   async created() {
     if(store.get('?__m__User')) this.userExist = true;
     this.user = store.get('__m__User')
-    console.log(store.get('__m__User'));
-    console.log(store.get('__m__UserData'));
 
     const res = await homepageList();
     this.banners = res.data.data.blocks[0].extInfo.banners;  //轮播

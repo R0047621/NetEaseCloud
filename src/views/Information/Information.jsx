@@ -40,7 +40,7 @@ export default {
                         <div class='flex items-center justify-center'>
                             <span class='dark:border-[#383838] dark:text-[#EEEEEE] px-[3vw] py-[1vw] text-[#41495E] text-[2.9vw] font-[800] flex items-center justify-center border-[1px] border-[#CCCCCD] rounded-[200px] ml-[1.5vw]' onClick={()=>this.$router.push('/edit')}>编辑资料</span>
                             <span class='dark:border-[#383838] dark:text-[#EEEEEE] w-[7.7vw] h-[7.7vw] text-[#41495E] text-[2.9vw] font-[800] flex items-center justify-center border-[1px] border-[#CCCCCD] rounded-[200px] ml-[1.5vw]'>
-                                <Icon icon="ep:arrow-up-bold" color="white" class='text-[3vw] mt-[0.6vw]' rotate={this.show?4:2} nativeOnClick={this.fn}/>
+                                <Icon icon="ep:arrow-up-bold"    class='dark:text-[#EEEEEE] text-[#41495E] text-[3vw] mt-[0.6vw]' rotate={this.show?4:2} nativeOnClick={this.fn}/>
                             </span>
                         </div>
                         {/*喜欢*/}

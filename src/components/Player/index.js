@@ -1,10 +1,6 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable consistent-return */
-/* eslint-disable no-underscore-dangle */
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Howl, Howler } from 'howler';
 import { getTrackDetail, getMP3 } from '../../request';
+import Player from './Player.vue';
 
 export default class {
   constructor() {
@@ -71,7 +67,11 @@ export default class {
     }, 1000);
   }
 
-  _replaceCurrentTrack(id, autoplay = true, ifUnplayableThen = 'playNextTrack') {
+  _replaceCurrentTrack(
+    id,
+    autoplay = true,
+    ifUnplayableThen = 'playNextTrack'
+  ) {
     return getTrackDetail(id).then((data) => {
       const track = data.data.songs[0];
       this._currentTrack = track;
@@ -81,7 +81,9 @@ export default class {
           // this._cacheNextTrack();
           return source;
         }
-        ifUnplayableThen === 'playNextTrack' ? this.playNextTrack() : this.playPrevTrack();
+        ifUnplayableThen === 'playNextTrack'
+          ? this.playNextTrack()
+          : this.playPrevTrack();
       });
     });
   }
@@ -93,6 +95,7 @@ export default class {
       resolve(data.data.data[0].url);
     });
   }
+
   _playAudioSource(source, autoplay = true) {
     Howler.unload();
     this._howler = new Howl({
@@ -149,7 +152,9 @@ export default class {
     this._howler && this._howler.play();
     this._playing = true;
     this._setIntervals();
-    this._duration = this._howler === null ? 0 : this._howler._duration;
+    this._howler.on('load', () => {
+      this._duration = this._howler === null ? 0 : this._howler._duration;
+    });
     // document.title = `${this._currentTrack.name} · ${this._currentTrack.ar[0].name}`;
   }
 
@@ -161,8 +166,14 @@ export default class {
     }
   }
 
+
   // 替换播放列表
-  replacePlaylist(trackIDs, playlistSourceID, playlistSourceType, autoPlayTrackID = 'first') {
+  replacePlaylist(
+    trackIDs,
+    playlistSourceID,
+    playlistSourceType,
+    autoPlayTrackID = 'first'
+  ) {
     this._isPersonalFM = false;
     if (!this._enabled) this._enabled = true;
     this.list = trackIDs;
@@ -178,5 +189,9 @@ export default class {
       this.current = trackIDs.indexOf(autoPlayTrackID);
       this._replaceCurrentTrack(autoPlayTrackID);
     }
+  }
+  static install(Vue) {
+    Vue.prototype.$player = Vue.observable(new this());
+    Vue.component("Player", Player);
   }
 }
