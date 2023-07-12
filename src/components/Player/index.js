@@ -129,6 +129,7 @@ export default class {
     return [this.list[this.current + 1], this.current + 1];
   }
 
+  /*下一曲*/
   playNextTrack() {
     const [trackID, index] = this._getNextTrack();
     if (trackID === undefined) {
@@ -140,6 +141,14 @@ export default class {
     this._replaceCurrentTrack(trackID);
     return true;
   }
+  /*调用_getNextTrack()方法获取下一首歌曲的ID和索引，返回值为一个数组 [trackID, index]。
+  判断如果trackID为undefined，表示没有下一首歌曲可播放，此时停止当前正在播放的音乐，并将_playing状态设置为false，然后返回false。
+  如果存在下一首歌曲，则将index赋值给this.current，表示当前正在播放的歌曲索引。
+  调用_replaceCurrentTrack(trackID)方法，用新的歌曲ID替换当前正在播放的歌曲。
+  返回true，表示成功播放下一首歌曲。
+  注意：该代码片段中引用了一些未提供的方法，比如_getNextTrack()和_replaceCurrentTrack()，这些方法可能是该对象的私有方法，它们负责获取下一首歌曲和替换当前正在播放的歌曲。
+  */
+
 
   pause() {
     this._howler && this._howler.pause();
@@ -192,6 +201,7 @@ export default class {
   }
   static install(Vue) {
     Vue.prototype.$player = Vue.observable(new this());
+    window.$player = Vue.prototype.$player;
     Vue.component("Player", Player);
   }
 }

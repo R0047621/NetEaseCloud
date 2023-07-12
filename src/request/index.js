@@ -85,4 +85,8 @@ export const getMP3 = (id) => http.get('/song/url/v1',{params:{id,level:'standar
 export const fetchUserUpdata = (nickname) => http.get('/user/update', { params: { nickname } });
 //昵称修改判断是否重复
 export const featNicknameCheck = (nickname) => http.get('/nickname/check', { params: { nickname } });
+//歌词
+export const lyric = (id) => http.get('/nickname/check', { params: { id } });
 
+//Mv
+export  const Mv = (area) => http.get('/top/mv',{params:{limit:50,area}})

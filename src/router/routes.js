@@ -4,7 +4,7 @@ export default [
     //路径重定向 如果是/默认是IndexView页面
     {
         path:'/',
-        redirect:'/PlayerHome',
+        redirect:'/HomeView',
     },
     {
         path:"/IndexView",//地址栏跳转的路径
@@ -66,5 +66,9 @@ export default [
     {
         path:'/PlayerHome',
         component: ()=>import('../views/PlayerHome.vue')
+    },
+    {
+        path:'/Mv',
+        component: ()=>import('../views/Mv/Mv.jsx')
     }
 ]

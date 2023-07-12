@@ -3,11 +3,11 @@
     <div @click="$router.push('/PlayerHome')" class="flex items-center">
       <div class="w-[10vw] h-[10vw] relative flex items-center justify-center rotateAnimation"  :class="{ 'paused-animation': !this?.$player?._playing }">
         <img src="/static/d7e4e3a244701ee85fecb5d4f6b5bd57.png" alt="" class="absolute top-0 left-0 z-[1]">
-        <img :src="music[0]?.al?.picUrl" alt="" class="w-[7vw] h-[7vw] rounded-[50%]">
+        <img :src="$player._currentTrack?.al?.picUrl" alt="" class="w-[7vw] h-[7vw] rounded-[50%]">
       </div>
       <div class="text-[3vw] w-[60vw] text-ellipsis overflow-hidden whitespace-nowrap ml-[2vw]">
-        <span class="text-[#3E485E]">{{music[0].name}}</span>
-        <span class="text-[#7B8591]">-{{music[0].ar[0].name}}</span>
+        <span class="text-[#3E485E]">{{$player._currentTrack?.name}}</span>
+        <span class="text-[#7B8591]" v-if="$player._currentTrack?.ar">-{{$player._currentTrack?.ar[0].name}}</span>
       </div>
     </div>
     <div class="w-[5.6vw] h-[5.6vw] relative ml-[2.2vw] overflow-hidden" >
@@ -18,10 +18,8 @@
    <div class="pl-[4.5vw]">
      <Icon icon="iconamoon:playlist-fill" class="text-[6vw] text-[#3b4152]" @click.native="show = !show"/>
    </div>
-
-
     <!-- 播放列表 -->
-    <van-popup class="rounded-t-[20px] px-[5.4vw]" v-model="show" position="bottom" :style="{ height: '60%' }">
+    <van-popup class="rounded-t-[20px] px-[5.4vw]" v-model="show" position="bottom" :style="{ height: '60%' }"  >
       <div class="playmusic py-[6vw]">
         <h1 class="text-[4vw] font-extrabold">
           当前播放 <span class="text-[2vw] text-[#929293]">({{music.length}}) </span>
@@ -46,14 +44,14 @@
       <div>
         <div v-for="(item, index) in music" :key="index.id" class="flex justify-between items-center h-[14vw]" @click="playSingle(item.id)">
           <div class="flex items-center">
-            <img src="/static/wave.gif" class="red-image w-[2vw] h-[2vw]" v-if="item.id === $player._currentTrack.id" alt=""/>
-            <h1 class="text-[4.1vw] ml-[2vw] w-[60vw] line-clamp-1" :class="item.id === $player._currentTrack.id ? 'text-[#D15B57]' : ''">
+            <img src="/static/wave.gif" class="red-image w-[2vw] h-[2vw]" v-if="item.id === $player._currentTrack?.id" alt=""/>
+            <h1 class="text-[4.1vw] ml-[2vw] w-[60vw] line-clamp-1" :class="item.id === $player._currentTrack?.id ? 'text-[red]' : ''">
               {{ item.name }}
-              <span :class=" item.id === $player._currentTrack.id ? 'text-[#D15B57]' : ''" class="text-[3vw] text-[#BCBCBC]">-{{ item.ar[0].name }}</span>
+              <span :class=" item.id === $player._currentTrack?.id ? 'text-[red]' : ''" class="text-[3vw] text-[#BCBCBC]" v-if="item.ar">-{{ item.ar[0].name }}</span>
             </h1>
           </div>
           <div class="flex items-center">
-            <p class="text-[3vw] mr-[6vw] text-[#BCBCBC]" v-if="item.id === $player._currentTrack.id">播放来源</p>
+            <p class="text-[3vw] mr-[6vw] text-[#BCBCBC]" v-if="item.id === $player._currentTrack?.id">播放来源</p>
             <Icon @click.native="fn(index,item.id)" icon="ic:baseline-close" :horizontalFlip="true" class="text-[5vw] text-[#B1B1B1]"/>
           </div>
         </div>
@@ -87,26 +85,15 @@ export default {
       this.music.splice(index, 1);
       store.set('cookie_music', this.music);
     },
-    playerAll() {
-      this.$player.replacePlaylist(
-          this.music.map((data) => data.id), '', ''
-      );
-    },
     playSingle(id) {
-      this.$player.replacePlaylist([id], '', '');
+      this.$player.replacePlaylist(this.music.map((data) => data.id), '', '', id);
       store.set('cookie_music', this.music);
     },
-
   },
    created() {
     console.log(this.$player)
     this.music = store.get('cookie_music');
    },
-  computed: {
-    text() {
-      return this.currentRate.toFixed(0) + '%';
-    },
-  },
 }
 </script>
 

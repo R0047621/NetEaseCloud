@@ -110,13 +110,19 @@
       </nav>
       <div>
         <div class="flex items-center h-[14vw]" v-for="(item, index) in data.data?.songs" :key="item.id"   @click="playSingle(item.id)">
-          <div class="w-[4vw] text-[#bfbfbf] text-[3vw] text-center mr-[3.52vw] font-medium">{{ index + 1 }}</div>
+          <div class="w-[4vw] text-[#bfbfbf] text-[3vw] text-center mr-[3.52vw] flex items-center justify-center"  v-if="item.id === $player._currentTrack.id" >
+            <img src="/static/wave.gif" class="red-image w-[2vw] h-[2vw]" alt=""/>
+          </div>
+          <div class="w-[4vw] text-[#bfbfbf] text-[3vw] text-center mr-[3.52vw] font-medium" v-else>{{ index + 1 }}</div>
           <div class="font-medium text-[3.6vw] w-[64vw]">
             <div class="text-[3.6vw] text-ellipsis overflow-hidden whitespace-nowrap w-[50vw] text-[#949797]">
-              <span class="text-ellipsis text-[#000]">{{item.name}}</span>
+              <span class="text-ellipsis text-[#000]" :class="item.id === $player._currentTrack.id ? 'text-[red]' : ''">{{item.name}}</span>
               <span class="text-[#949797]" v-if="item.alia.length!==0">{{item.alia}}</span>
             </div>
-            <div class="w-[64vw] text-ellipsis overflow-hidden whitespace-nowrap text-[#808080] text-[2.8vw]">
+            <div class="w-[64vw] text-ellipsis overflow-hidden whitespace-nowrap text-[#808080] text-[2.8vw] flex items-center">
+<!--              <Icon icon="quill:vip"  v-if="item.fee === 1" class="text-[4.5vw] text-[red] mx-[0.5vw]"/>-->
+              <span class="w-[8.5vw] h-[6vw] rounded-[3px] border-[1px] border-[red] font-[800] text-[3vw] text-[red] text-center leading-[6vw] scale-50 ml-[-2vw] mr-[-1vw]"  v-if="item.fee === 1">vip</span>
+              <span class="w-[8.5vw] h-[6vw] rounded-[3px] border-[1px] border-[#60BDEF] text-[3vw] text-[#60BDEF] text-center leading-[6vw] scale-50 ml-[-2vw] mr-[-1vw]"  v-if="item.fee === 1">试听</span>
               <span >{{item.ar[0].name}}-{{item.al.name}}</span>
             </div>
           </div>
@@ -189,7 +195,7 @@ export default {
     },
     // 播放器 播放单个
     playSingle(id) {
-      this.$player.replacePlaylist([id], '', '');
+      this.$player.replacePlaylist(this.data.data.songs.map((song) => song.id), '', '', id);
       store.set('cookie_music', this.data.data.songs);
       this.$router.push('/PlayerHome')
     },
@@ -207,6 +213,7 @@ export default {
   async created(){
     this.title = await playlistDetail(this.$route.params.id.replace(':id=',''))
     this.data = await playlistTrackAll(this.$route.params.id.replace(':id=',''))
+    console.log(this.data);
     this.relatedPlay = await relatedPlaylist(this.$route.params.id.replace(':id=',''));
   },
 }
@@ -285,5 +292,7 @@ export default {
     opacity: 1;
   }
 }
-
+.red-image {
+  filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='colorize'><feColorMatrix type='matrix' values='1 0 0 0 0.698 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter></svg>#colorize");
+}
 </style>
