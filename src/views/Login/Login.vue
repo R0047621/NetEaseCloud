@@ -27,8 +27,9 @@
   </div>
 </template>
 <script>
-import {getQrKey, getQrInfo, checkQrStatus, getUserAccount, getUserDetail} from '../../request'
+import {checkQrStatus, getQrInfo, getQrKey, getUserAccount, getUserDetail} from '../../request'
 import store from "storejs";
+
 export default {
   name:'Login',
   data(){

@@ -1,9 +1,16 @@
 import store from "storejs";
-import {getIPAddr,ip2Territory,fetchUserPlaylist,fetchUserHistory,fetchSongDetail,fetchArtistList} from '../../request'
+import {
+    fetchArtistList,
+    fetchSongDetail,
+    fetchUserHistory,
+    fetchUserPlaylist,
+    getIPAddr,
+    ip2Territory
+} from '../../request'
 import BScroll from '@better-scroll/core'
-import dayjs from 'dayjs';//引入插件
-import 'dayjs/locale/zh-cn';//引入汉化包
-import relativeTime from 'dayjs/plugin/relativeTime';//引入插件
+import dayjs from 'dayjs'; //引入插件
+import 'dayjs/locale/zh-cn'; //引入汉化包
+import relativeTime from 'dayjs/plugin/relativeTime'; //引入插件
 dayjs.extend(relativeTime);//扩展功能
 dayjs.locale('zh-cn');
 export default {

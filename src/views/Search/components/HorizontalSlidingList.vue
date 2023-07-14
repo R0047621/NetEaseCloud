@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { Swipe, SwipeItem } from 'vant';
+import {Swipe, SwipeItem} from 'vant';
 
 export default {
   props:['list'],

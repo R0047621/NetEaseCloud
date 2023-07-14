@@ -1,5 +1,6 @@
 import {Mv} from '../../request'
 import styled from 'styled-components-vue';
+
 const Wrapper = styled.div`
   .tab {
     .van-tabs__wrap {
@@ -37,7 +38,7 @@ export default {
             {/*标题开始*/}
             <div class="flex items-center justify-center w-[100%] px-[4vw] py-[3vw] bg-[#fff] text-[#010101]  text-[4.2vw] font-[600]">MV排行榜</div>
 
-            <van-tabs swipeable animated  onChange={this.beforeChange} class='tab'>
+            <van-tabs swipeable animated onChange={this.beforeChange} class='tab'>
                 {
                     this.tab.map((item)=>{ return <van-tab title={item}>
                         <div class={['overflow-auto' ,'px-[4vw]',$player.list === undefined ? 'h-[76vh]' : 'h-[70vh]']} >
@@ -54,7 +55,19 @@ export default {
                                         <span class=" flex-1 line-clamp-1 text-[#000] text-[4vw] font-semibold h-[5vw]">{item.name}</span>
                                     </div>
                                     <div class="flex h-[4vw] items-center">
-                                        <span class="w-[5.3vw] text-[#999999] text-[2vw] mr-[2.8vw] text-center">-</span>
+                                        {item.lastRank === index + 1 ? (
+                                            <div class="w-[5.3vw] text-[#999999] text-[2vw] mr-[2.8vw] flex items-center justify-center">-</div>
+                                        ) : null}
+                                        {item.lastRank === -1 ? (
+                                            <div class="w-[5.3vw] text-[#999999] text-[2vw] mr-[2.8vw] flex items-center justify-center">new</div>
+                                        ) : null}
+                                        {item.lastRank > index + 1 ? (<div class="w-[5.3vw] text-[#999999] text-[2vw] mr-[2.8vw] flex items-center justify-center"><Icon icon="maki:triangle" class="text-[#f05357]"/>{item.lastRank - (index + 1)}</div>) : null}
+                                        {item.lastRank < index + 1 && item.lastRank != -1 ? (
+                                            <div class="w-[5.3vw] text-[#999999] text-[2vw] mr-[2.8vw] flex items-center justify-center">
+                                                <Icon icon="maki:triangle" rotate={2} class="text-[#57b5e4]"/>{index + 1 - item.lastRank}
+                                            </div>
+                                        ) : null}
+
                                         <div class=" flex-1 line-clamp-1 text-[#7c7c7c] text-[2vw]">
                                             {item?.artists?.map((key, index) => (<span>{key.name}{index < item.artists.length - 1 && <span>/</span>}</span>))}
                                         </div>
@@ -95,7 +108,8 @@ export default {
                 return playVolume.toString();
             }
         },
-    }, async created() {
+    },
+    async created() {
         this.beforeChange(0);
     }
 }

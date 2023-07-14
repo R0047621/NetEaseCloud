@@ -141,7 +141,7 @@
   </div>
 </template>
 <script>
-import {homepageList, calendar, dragonBall, hotTopic, getUserAccount, getUserDetail} from '../../request'
+import {calendar, dragonBall, homepageList, hotTopic} from '../../request'
 import BScroll from '@better-scroll/core'
 import RecommendItem from './components/RecommendItem.vue';
 import RankingItem from './components/RankingItem.vue';
@@ -151,7 +151,7 @@ import MenuItem from './components/MenuItem.vue';
 import TalkItem from './components/TalkItem.vue'
 import Banner from './components/Banner.vue';
 import LeftSidebarModuleView from './components/LeftSidebarModuleView.vue';
-import {Search, Swipe, SwipeItem} from 'vant';
+import {Swipe, SwipeItem} from 'vant';
 import store from "storejs";
 import Dialog from "../../components/Dialog";
 

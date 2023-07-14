@@ -1,5 +1,5 @@
 //所有的请求都定义在这个位置
-import axios from 'axios';
+import  axios from 'axios';
 import store from "storejs";
 // 拼接axios的路由
 const http = axios.create({
@@ -86,7 +86,7 @@ export const fetchUserUpdata = (nickname) => http.get('/user/update', { params: 
 //昵称修改判断是否重复
 export const featNicknameCheck = (nickname) => http.get('/nickname/check', { params: { nickname } });
 //歌词
-export const lyric = (id) => http.get('/nickname/check', { params: { id } });
+export const lyricText = (id) => http.get('/lyric', { params: { id } });
 
 //Mv
 export  const Mv = (area) => http.get('/top/mv',{params:{limit:50,area}})

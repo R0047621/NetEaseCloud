@@ -135,12 +135,12 @@
   </div>
 </template>
 <script>
-import  {playlistDetail, playlistTrackAll, relatedPlaylist} from '../../request'
+import {playlistDetail, playlistTrackAll, relatedPlaylist} from '../../request'
 import {all} from "axios";
 import BScroll from '@better-scroll/core'
 import RecommendItem from "../HomeView/components/RecommendItem.vue";
-import { debounce } from 'lodash';
 import store from "storejs";
+
 export default {
   components: {RecommendItem},
   mounted() {

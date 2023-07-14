@@ -63,6 +63,7 @@
 
 <script>
 import store from 'storejs'
+let lyric = null;
 export default {
   data() {
     return {
@@ -71,6 +72,7 @@ export default {
       angle: 0,
       show:false,
       music:[],
+      id:0,//当前歌曲的id
     };
   },
   methods: {
@@ -91,8 +93,8 @@ export default {
     },
   },
    created() {
-    console.log(this.$player)
-    this.music = store.get('cookie_music');
+    console.log(this.$player._currentTrack.id);
+    this.id = this.$player._currentTrack.id
    },
 }
 </script>

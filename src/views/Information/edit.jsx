@@ -1,6 +1,9 @@
 import styled from "styled-components-vue";
 import store from "storejs";
 import {areaList} from "@vant/area-data";
+import {featNicknameCheck, fetchUserUpdata} from '../../request'
+import _ from 'lodash';
+
 const Wrapper = styled.div`
   .van-cell-group{
     ::after{
@@ -18,8 +21,6 @@ const Wrapper = styled.div`
   .van-cell__value{color:#999999;font-size:3vw;font-weight: 200;} 
   .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{border-width: 0 !important;}
 `
-import {fetchUserUpdata,featNicknameCheck} from '../../request'
-import _ from 'lodash';
 export default {
     render(){
         return (

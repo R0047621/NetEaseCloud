@@ -1,7 +1,8 @@
-<script >
-import { areaList } from '@vant/area-data';
+<script>
+import {areaList} from '@vant/area-data';
 import styled from "styled-components-vue";
 import Button from "../../components/Button/button.vue";
+
 const Wrapper = styled.div`
   .van-picker__confirm{color: red}`
 export default {

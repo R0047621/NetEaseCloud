@@ -1,4 +1,5 @@
 import styled from "styled-components-vue";
+
 const Wrapper = styled.div`
   background: #7d848d;
   width: 50vw;

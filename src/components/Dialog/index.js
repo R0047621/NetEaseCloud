@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Dialog from './Dialog.vue'
+
 console.log(Dialog);
 //创建一个Dialog配置项的vue子类
 export default function (option){

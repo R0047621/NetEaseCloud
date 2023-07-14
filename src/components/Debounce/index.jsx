@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 export default {
     render(){
         this.$slots.defaule[0].data.on.click = _.debounce(

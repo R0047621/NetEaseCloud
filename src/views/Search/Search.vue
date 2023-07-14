@@ -46,9 +46,10 @@
 
 </template>
 <script>
-import {playlist, fetchSearchDefault, fetchSearchResult, detail} from '../../request'
+import {detail, fetchSearchDefault, fetchSearchResult, playlist} from '../../request'
 import HorizontalSlidingList from "./components/HorizontalSlidingList.vue";
 import _ from 'lodash'
+
 export default {
   components:{HorizontalSlidingList},
   data(){
@@ -99,8 +100,6 @@ export default {
   }
 }
 </script>
-
-
-<style >
+<style>
 
 </style>
