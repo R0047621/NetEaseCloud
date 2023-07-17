@@ -31,11 +31,12 @@
       <div v-show="tab" class="transition-all fade-in">
         <section class="h-[29vw] flex pt-[2.6vw]  justify-between">
           <div class="w-[24vw] h-[25vw] pt-[1vw] relative">
-            <img  alt="" class="w-[24vw] h-[24vw] rounded-[10px] relative z-[2] " v-lazy="{
-              src:title.data?.playlist.coverImgUrl,
-              loading:'/static/loading.png',
-              error:'/static/loading.png',
-            }" >
+<!--            <img  alt="" class="w-[24vw] h-[24vw] rounded-[10px] relative z-[2] " v-lazy="{-->
+<!--              src:title.data?.playlist.coverImgUrl,-->
+<!--              loading:'/static/loading.png',-->
+<!--              error:'/static/loading.png',-->
+<!--            }" >-->
+            <img :src="title.data?.playlist.coverImgUrl" alt="" class="w-[24vw] h-[24vw] rounded-[10px] relative z-[2]" >
             <div class="w-[20vw] h-[10vw]  bg-opacity-20 bg-[#fff] absolute top-0 left-1/2 -translate-x-1/2 rounded-[6px] z-[1]"></div>
             <div  class="absolute top-0 left-0 pr-[1.4vw] pt-[2vw]  justify-end font-[800] text-[#fff] flex items-center w-[24vw] z-[2]  transform scale-80">
               <Icon icon="ion:play" width="10" class='text-[#fff] w-[3vw] h-[3vw]' />
@@ -213,7 +214,6 @@ export default {
   async created(){
     this.title = await playlistDetail(this.$route.params.id.replace(':id=',''))
     this.data = await playlistTrackAll(this.$route.params.id.replace(':id=',''))
-    console.log(this.data);
     this.relatedPlay = await relatedPlaylist(this.$route.params.id.replace(':id=',''));
   },
 }

@@ -19,13 +19,14 @@ import {
     Tab,
     Tabbar,
     TabbarItem,
-    Tabs
+    Tabs,
+    Collapse, CollapseItem
 } from 'vant';
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/default.css'
 
 Vue.component('VueSlider', VueSlider)
-Vue.use(NoticeBar).use(Swipe).use(SwipeItem).use(Button).use(Popup).use(Area).use(Cell).use(CellGroup).use(Circle).use(Lazyload).use(Picker).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs);
+Vue.use(Swipe).use(SwipeItem).use(Button).use(Popup).use(Area).use(Cell).use(CellGroup).use(Circle).use(Lazyload).use(Picker).use(Tabbar).use(TabbarItem).use(Tab).use(Tabs).use(Collapse).use(CollapseItem).use(NoticeBar);
 Vue.component('Icon', Icon);
 Vue.component('Drawer',Drawer);
 Vue.use(Player);

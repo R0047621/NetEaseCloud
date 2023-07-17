@@ -1,6 +1,6 @@
 <template>
  <div @click='clickHander'>
-   <div class='bg-black opacity-40 fixed top-0 left-0 bottom-0 right-0 z-[10]' ref='drawerMask' v-if='visible'></div>
+   <div class='bg-black opacity-40 fixed top-0 left-0 bottom-0 right-0 z-[11]' ref='drawerMask' v-if='visible'></div>
    <transition :name='direction'>
      <div class='dark:bg-[#272727] bg-[#fff] fixed z-[11]' v-show='visible' :style='drawerContentStyle'>
        <div>

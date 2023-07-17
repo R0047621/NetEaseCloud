@@ -66,11 +66,7 @@
        </div>
        <!--播放控件-->
        <div class=" h-[12.3vw] flex w-[100vw] items-center justify-evenly">
-         <div v-if="false">
-           <Icon icon="icon-park-outline:loop-once" v-if="false"/>
-           <span v-else-if="false"></span>
-         </div>
-         <Icon icon="ps:random" v-if="true" class="text-[#fff]"/>
+         <Icon @click.native="$player.boolea = !$player.boolea" :icon="$player.boolea ? 'fad:repeat' : 'fad:repeat-one'" class="text-[#fff] text-[8vw]"/>
          <!--上一曲-->
          <Icon icon="fluent:previous-16-filled" class="text-[#fff]" @click.native="PrevTrackCallback"/>
          <div class="w-[12vw] h-[12vw] rounded-[50%] bg-[#fff] flex items-center justify-center">
@@ -95,10 +91,11 @@
           当前播放 <span class="text-[2vw] text-[#929293]">({{ music.length }}) </span>
         </h1>
         <div class="flex justify-between mt-[6.6vw] items-center">
-          <div class="flex">
+          <div class="flex items-center">
             <!-- 列表循环图标 -->
-            <Icon icon="arcticons:loopboard" :horizontalFlip="true" class="text-[5vw] text-[#B1B1B1]"/>
-            <h1 class="ml-[1.5vw] text-[3.4vw] font-medium">列表循环</h1>
+            <Icon @click.native="$player.boolea = !$player.boolea" :icon="$player.boolea ? 'fad:repeat' : 'fad:repeat-one'" class="text-[#ccc] text-[8vw]"/>
+            <h1 class="ml-[1.5vw] text-[3.4vw] font-medium" v-if="$player.boolea">列表循环</h1>
+            <h1 class="ml-[1.5vw] text-[3.4vw] font-medium" v-else>单曲循环</h1>
           </div>
           <div class="flex w-[30vw] justify-between">
             <!-- 下载图标 -->
@@ -137,8 +134,7 @@
 <script>
 
 import store from "storejs";
-import {lyricText} from '../request'
-import Lyric from 'lyric-parser';
+
 
 export default {
   data() {
@@ -161,7 +157,6 @@ export default {
       ).padStart(2, '0')}`;
     },
     fn(index, id) {
-      console.log(123)
       if (this.$player._currentTrack.id === id) {
         this.playSingle(this.music[index + 1].id);
       }
@@ -232,7 +227,7 @@ export default {
 }
 
 .rotated {
-  transition: all .5s;
+  transition: transform  .5s;
   transform-origin: left top;
 }
 

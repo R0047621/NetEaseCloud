@@ -4,7 +4,7 @@
       <router-view :class="showMenu && showPlayer ? 'pb-[24vw]' : 'pb-[12vw]'"/>
     </transition>
     <!--播放器-->
-    <Player  v-if="$player.list === undefined ? false : showPlayer" class="fixed bottom-0 bg-[#fff] z-[30]" :class="showMenu ? 'bottom-[12vw]' : 'bottom-0'"/>
+    <Player  v-if="$player.list === undefined ? false : showPlayer" class="fixed bottom-0 bg-[#fff] z-[10]" :class="showMenu ? 'bottom-[12vw]' : 'bottom-0'"/>
     <!--菜单-->
     <!-- 菜单 -->
     <van-tabbar route v-if="showMenu" class="bg-[#fff] fixed z-[3]">
@@ -33,7 +33,11 @@ export default {
     },
     showPlayer() {
       // 在这里根据你的逻辑判断是否在当前页面显示播放器组件
-      return this.$route.path !== '/PlayerHome';
+
+      return !(this.$route.path === '/edit' ||
+          this.$route.path === '/PlayerHome' ||
+          this.$route.path.slice(0, 16) === '/videoPlayerView');
+
     },
     showMenu() {
       return this.$route.path === '/HomeView' || this.$route.path === '/Information' || this.$route.path === '/Mv';

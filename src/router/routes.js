@@ -4,7 +4,7 @@ export default [
     //路径重定向 如果是/默认是IndexView页面
     {
         path: '/',
-        component: () => import(/*webpackChunkName:' root'*/'../views/示例/Root.vue')
+        component: () => import(/*webpackChunkName:' root'*/'../views/HomeView/HomeView.vue')
     },
     {
         path: "/IndexView",//地址栏跳转的路径
@@ -70,6 +70,10 @@ export default [
     {
         path: '/Mv',
         component: () => import('../views/Mv/Mv.jsx')
+    },
+    {
+        path:'/videoPlayerView/:id',
+        component:()=>import('../views/Mv/videoPlayerView.vue')
     },
     // 子路由组件渲染在父路由组件的router-view中
     {

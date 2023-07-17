@@ -33,6 +33,9 @@ export default class {
         this.lineIndex  = 0;//歌词当前行数
         this.lineHieght = -20;//偏移量
 
+        this.repeatMode = 'on';
+        this.boolea = true;
+
         // 初始化howler
         this._howler = null;
         Object.defineProperty(this, '_howler', {enumerable: false});
@@ -59,10 +62,7 @@ export default class {
         return this._duration;
     }
 
-
-
     async initLyricPlayer(trackId){
-        console.log(trackId);
         const res = await lyricText(trackId);
         lyricPlayer = new Lyric(res.data.lrc.lyric, ({lineNum, txt}) => {
             this.lineIndex = lineNum;// 索引
@@ -90,6 +90,7 @@ export default class {
 
     //播放歌曲
     _replaceCurrentTrack(id, autoplay = true, ifUnplayableThen = 'playNextTrack') {
+        if(lyricPlayer) lyricPlayer.stop();
         return getTrackDetail(id).then((data) => {
             //歌词
             this.initLyricPlayer(id).then(() => {
@@ -160,9 +161,14 @@ export default class {
             this._playing = false;
             return false;
         }
-        this.current = index;
-        this._replaceCurrentTrack(trackID);
-        return true;
+        if (!this.boolea) {
+            this._replaceCurrentTrack(this._currentTrack.id);
+            return true;
+        } else {
+            this.current = index;
+            this._replaceCurrentTrack(trackID);
+            return true;
+        }
     }
 
     /*调用_getNextTrack()方法获取下一首歌曲的ID和索引，返回值为一个数组 [trackID, index]。

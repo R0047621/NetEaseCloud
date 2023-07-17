@@ -43,7 +43,7 @@ export default {
                     this.tab.map((item)=>{ return <van-tab title={item}>
                         <div class={['overflow-auto' ,'px-[4vw]',$player.list === undefined ? 'h-[76vh]' : 'h-[70vh]']} >
                             {this.MvdataList?.map((item, index) => (<div class="w-[92vw]">
-                                <div class="w-[100%] h-[52vw] relative">
+                                <div class="w-[100%] h-[52vw] relative"  onClick={()=> this.$router.push(`/videoPlayerView/${item.id}`)}>
                                     <img src={item.cover} class=" w-[100%] h-[52vw] bg-black rounded-[3vw] mb-[2.7vw]"/>
                                     <div class="absolute top-[2vw] text-[#fff] right-[2vw] text-[2.6vw] flex items-center">
                                         <Icon icon="solar:play-bold" color="#fdffff" class="mr-[0.5vw] text-[2.6vw]"/>{this.dataTruncation(item.playCount)}
@@ -90,7 +90,6 @@ export default {
                 this.isLoading = true;
                 const res = await Mv(this.tab[index]);
                 this.MvdataList = res.data.data;
-                console.log(this.MvdataList)
             } catch (error) {
                 console.error(error);
             } finally {
